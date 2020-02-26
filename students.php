@@ -15,17 +15,11 @@
 
             $result = $mysqli->query($sql);
             
-            $avg_result = $mysqli->query($avg);
-
-
             displayStudents($result);
 
             function displayStudents($result) {
                 $array_value = array();
                 $row = mysqli_fetch_row($result);
-                while ($value =  mysqli_fetch_row($result)) {
-                    $array_value[] = $value;  
-                }
                 echo json_encode($row);
             }
             
