@@ -5,14 +5,28 @@
         <?php
             include 'config.php';
 
-            $sql = "Select * from students";
+            if (!isset($_GET['id'])) {
+                die("You must use id in this format: http://localhost/school/students.php/?id=1");
+            } else {
+                $id = trim($_GET['id']);
+            }
+            
+            $sql = "SELECT * from students WHERE id=".$id; 
+
             $result = $mysqli->query($sql);
+            
+            $avg_result = $mysqli->query($avg);
+
 
             displayStudents($result);
 
             function displayStudents($result) {
-                while ($row = @mysqli_fetch_row($result)) {
-                    echo "<div> Name:<a href=students/".$row[0].">". $row[1] . "</a><hr></div>";
+                $array_value = array();
+                $row = mysqli_fetch_row($result);
+                while ($value =  mysqli_fetch_row($result)) {
+                    $array_value[] = $value;  
                 }
+                echo json_encode($row);
             }
+            
         ?>
